@@ -47,3 +47,10 @@ public void setDuration(String duration) {
     this.duration = duration;
 }
 
+@Override
+public String toString() {
+    return "Routine{" +
+            "id=" + id +
+            ", activity='" + activity + '\'' +
+            ", duration='" + duration + '\'' +
+            '}';
