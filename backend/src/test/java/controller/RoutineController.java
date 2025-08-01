@@ -3,8 +3,7 @@ package controller;
 import model.Routine;
 import repository.RoutineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,5 +19,12 @@ public class RoutineController {
     @GetMapping("/routines")
     public List<Routine> getAllRoutines() {
         return routineRepository.findAll();
+    }
+
+    // new post endpoint to save a routine
+    // needs a routine json in the request body
+    @PostMapping("/routines")
+    public Routine createRoutine(@RequestBody Routine routine) {
+        return routineRepository.save(routine);
     }
 }
