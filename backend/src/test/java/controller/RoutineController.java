@@ -1,8 +1,12 @@
-package controller;
-
-import org.springframework.web.bind.annotation.RestController;
+import model.Routine;
+import repository.RoutineRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 public class RoutineController {
-    // setting up the controller class here for now
+
+    @Autowired
+    private RoutineRepository routineRepository;
+
+    // just injected the repo so it can be used
 }
