@@ -1,9 +1,10 @@
 package controller;
 
 import model.Routine;
-import repository.RoutineRepository;
+import service.RoutineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -11,20 +12,12 @@ import java.util.List;
 public class RoutineController {
 
     @Autowired
-    private RoutineRepository routineRepository;
+    private RoutineService routineService;
 
-    // just injected the repo so we can use it
+    // using the service layer now instead of calling repo directly
 
-    // basic get endpoint to return all routines
     @GetMapping("/routines")
     public List<Routine> getAllRoutines() {
-        return routineRepository.findAll();
-    }
-
-    // new post endpoint to save a routine
-    // needs a routine json in the request body
-    @PostMapping("/routines")
-    public Routine createRoutine(@RequestBody Routine routine) {
-        return routineRepository.save(routine);
+        return routineService.getAllRoutines();
     }
 }
