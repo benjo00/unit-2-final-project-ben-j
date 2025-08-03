@@ -1,60 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-// routine manager component for adding routines
-function RoutineManager() {
-  const [activity, setActivity] = useState('');
-  const [duration, setDuration] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // object to send to backend
-    const newRoutine = { activity, duration };
-
-    fetch('/routines', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newRoutine)
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Failed to add routine');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log('added:', data);
-        // reset form fields
-        setActivity('');
-        setDuration('');
-      })
-      .catch((err) => {
-        console.error('error posting routine', err);
-      });
-  };
-
+// shows routines, data passed from parent
+function RoutineList({ routines }) {
   return (
-    <div className="routine-manager">
-      <h2>Add a New Routine</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Activity:</label>
-        <input
-          type="text"
-          value={activity}
-          onChange={(e) => setActivity(e.target.value)}
-        />
-
-        <label>Duration:</label>
-        <input
-          type="text"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-        />
-
-        <button type="submit">Add Routine</button>
-      </form>
+    <div className="routine-list">
+      <h2>Your Routines</h2>
+      <ul>
+        {routines.map((routine) => (
+          <li key={routine.id}>
+            {routine.activity} - {routine.duration}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
 
-export default RoutineManager;
+export default RoutineList;
