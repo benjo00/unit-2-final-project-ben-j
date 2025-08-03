@@ -1,16 +1,16 @@
-// RoutineList.jsx
-import React, { useEffect, useState } from "react";
-
-// basic fetch setup for routines from backend
+import React, { useEffect, useState } from 'react';
 
 function RoutineList() {
   const [routines, setRoutines] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/routines")
+    fetch('/routines')
       .then((res) => res.json())
       .then((data) => {
         setRoutines(data);
+      })
+      .catch((error) => {
+        console.error('error fetching routines', error);
       });
   }, []);
 
@@ -18,9 +18,9 @@ function RoutineList() {
     <div>
       <h2>Routine List</h2>
       <ul>
-        {routines.map((r) => (
-          <li key={r.id}>
-            {r.activity} - {r.duration}
+        {routines.map((routine) => (
+          <li key={routine.id}>
+            {routine.activity} - {routine.duration}
           </li>
         ))}
       </ul>
