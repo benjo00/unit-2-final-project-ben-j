@@ -1,29 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-function RoutineList() {
-  const [routines, setRoutines] = useState([]);
-
-  useEffect(() => {
-    fetch('/routines')
-      .then((res) => res.json())
-      .then((data) => {
-        setRoutines(data);
-      })
-      .catch((error) => {
-        console.error('error fetching routines', error);
-      });
-  }, []);
-
+// routines, data passed from parent
+function RoutineList({ routines }) {
   return (
-    <div>
-      <h2>Routine List</h2>
-      <ul>
-        {routines.map((routine) => (
-          <li key={routine.id}>
-            {routine.activity} - {routine.duration}
-          </li>
-        ))}
-      </ul>
+    <div className="routine-list">
+      <h2>Your Routines</h2>
+      {routines.length === 0 ? (
+        <p>No routines added yet.</p>
+      ) : (
+        <ul>
+          {routines.map((routine) => (
+            <li key={routine.id}>
+              {routine.activity} - {routine.duration}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
