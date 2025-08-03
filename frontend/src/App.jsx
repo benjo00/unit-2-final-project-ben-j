@@ -7,6 +7,7 @@ import Ancient from './components/Ancient';
 import About from './components/About';
 import Footer from './components/footer';
 import Header from './components/Header';
+import RoutineList from './components/RoutineList'; // ✅ NEW IMPORT
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <>
                 <Home />
                 <RoutineManager />
+                <RoutineList /> {/* ✅ TEMPORARY RENDER TEST */}
               </>
             } />
             <Route path="/modern" element={<Modern />} />
