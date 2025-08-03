@@ -7,8 +7,30 @@ function RoutineManager() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // logging
-    console.log('submitted:', activity, duration);
+
+    // object to send to backend
+    const newRoutine = { activity, duration };
+
+    fetch('/routines', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newRoutine)
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Failed to add routine');
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log('added:', data);
+        // reset form fields
+        setActivity('');
+        setDuration('');
+      })
+      .catch((err) => {
+        console.error('error posting routine', err);
+      });
   };
 
   return (
