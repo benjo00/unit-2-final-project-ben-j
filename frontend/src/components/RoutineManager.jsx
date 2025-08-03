@@ -5,10 +5,16 @@ function RoutineManager() {
   const [activity, setActivity] = useState('');
   const [duration, setDuration] = useState('');
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // logging
+    console.log('submitted:', activity, duration);
+  };
+
   return (
     <div className="routine-manager">
       <h2>Add a New Routine</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label>Activity:</label>
         <input
           type="text"
@@ -23,7 +29,7 @@ function RoutineManager() {
           onChange={(e) => setDuration(e.target.value)}
         />
 
-        {}
+        <button type="submit">Add Routine</button>
       </form>
     </div>
   );
