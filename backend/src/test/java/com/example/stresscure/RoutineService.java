@@ -13,14 +13,12 @@ public class RoutineService {
     @Autowired
     private RoutineRepository routineRepository;
 
-    // injecting the repository
-
-    // returns a list of all routines
+    // returning all routines from db
     public List<Routine> getAllRoutines() {
         return routineRepository.findAll();
     }
 
-    // saving a routine to db
+    // adds a new routine to the db
     public Routine saveRoutine(Routine routine) {
         return routineRepository.save(routine);
     }
