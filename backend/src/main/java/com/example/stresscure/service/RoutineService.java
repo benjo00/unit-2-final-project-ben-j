@@ -1,4 +1,4 @@
-package service;
+package com.example.stresscure.service;
 
 import model.Routine;
 import repository.RoutineRepository;

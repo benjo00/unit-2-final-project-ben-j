@@ -13,16 +13,15 @@ public class RoutineController {
     @Autowired
     private RoutineService routineService;
 
-    // using the service layer now instead of calling repo directly
-
+    // GET endpoint to return all routines
     @GetMapping("/routines")
     public List<Routine> getAllRoutines() {
         return routineService.getAllRoutines();
     }
 
-    // handles adding a new routine to the db
-    @PostMapping("/routines")
-    public Routine createRoutine(@RequestBody Routine routine) {
+    // POST endpoint to add a routine
+    @PostMapping("/addroutine")
+    public Routine addRoutine(@RequestBody Routine routine) {
         return routineService.saveRoutine(routine);
     }
 }
