@@ -13,15 +13,27 @@ public class RoutineController {
     @Autowired
     private RoutineService routineService;
 
-    // GET endpoint to return all routines
+    // get all routines
     @GetMapping("/routines")
     public List<Routine> getAllRoutines() {
         return routineService.getAllRoutines();
     }
 
-    // POST endpoint to add a routine
-    @PostMapping("/addroutine")
-    public Routine addRoutine(@RequestBody Routine routine) {
+    // post a new routine
+    @PostMapping("/routines")
+    public Routine createRoutine(@RequestBody Routine routine) {
         return routineService.saveRoutine(routine);
+    }
+
+    // update a routine by id
+    @PutMapping("/routines/{id}")
+    public Routine updateRoutine(@PathVariable Long id, @RequestBody Routine routine) {
+        return routineService.updateRoutine(id, routine);
+    }
+
+    // delete a routine by id
+    @DeleteMapping("/routines/{id}")
+    public void deleteRoutine(@PathVariable Long id) {
+        routineService.deleteRoutine(id);
     }
 }
