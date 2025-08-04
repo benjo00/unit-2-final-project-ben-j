@@ -1,20 +1,40 @@
 import React from 'react';
 
-// routines, data passed from parent
+// utility function to group routines by category
+function groupByCategory(routines) {
+  const groups = {};
+  routines.forEach((routine) => {
+    const cat = routine.category || 'Uncategorized';
+    if (!groups[cat]) {
+      groups[cat] = [];
+    }
+    groups[cat].push(routine);
+  });
+  return groups;
+}
+
+// shows routines grouped by category
 function RoutineList({ routines }) {
+  const grouped = groupByCategory(routines);
+
   return (
     <div className="routine-list">
       <h2>Your Routines</h2>
-      {routines.length === 0 ? (
+      {Object.keys(grouped).length === 0 ? (
         <p>No routines added yet.</p>
       ) : (
-        <ul>
-          {routines.map((routine) => (
-            <li key={routine.id}>
-              {routine.activity} - {routine.duration}
-            </li>
-          ))}
-        </ul>
+        Object.entries(grouped).map(([category, routinesInCategory]) => (
+          <div key={category}>
+            <div className="routine-category">{category}</div>
+            <ul>
+              {routinesInCategory.map((routine) => (
+                <li key={routine.id}>
+                  {routine.activity} - {routine.duration}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
       )}
     </div>
   );
