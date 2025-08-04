@@ -1,21 +1,16 @@
 import React from 'react';
 
-// utility function to group routines by category
-function groupByCategory(routines) {
-  const groups = {};
-  routines.forEach((routine) => {
-    const cat = routine.category || 'Uncategorized';
-    if (!groups[cat]) {
-      groups[cat] = [];
-    }
-    groups[cat].push(routine);
-  });
-  return groups;
-}
-
-// shows routines grouped by category
+// group routines by category and display them
 function RoutineList({ routines }) {
-  const grouped = groupByCategory(routines);
+  // categorize the routines
+  const grouped = routines.reduce((acc, routine) => {
+    const cat = routine.category || 'Uncategorized';
+    if (!acc[cat]) {
+      acc[cat] = [];
+    }
+    acc[cat].push(routine);
+    return acc;
+  }, {});
 
   return (
     <div className="routine-list">
