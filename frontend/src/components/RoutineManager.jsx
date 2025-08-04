@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import RoutineList from './RoutineList';
 
 // routine manager controls form and routines list
@@ -6,8 +6,8 @@ function RoutineManager() {
   const [activity, setActivity] = useState('');
   const [duration, setDuration] = useState('');
   const [routines, setRoutines] = useState([]);
+  const activityInputRef = useRef(null);
 
-  // load all routines from backend when component mounts
   useEffect(() => {
     fetch('/routines')
       .then((res) => res.json())
@@ -20,18 +20,7 @@ function RoutineManager() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const trimmedActivity = activity.trim();
-    const trimmedDuration = duration.trim();
-
-    if (!trimmedActivity || !trimmedDuration) {
-      alert('Please fill in both fields');
-      return;
-    }
-
-    const newRoutine = {
-      activity: trimmedActivity,
-      duration: trimmedDuration
-    };
+    const newRoutine = { activity, duration };
 
     fetch('/routines', {
       method: 'POST',
@@ -45,10 +34,12 @@ function RoutineManager() {
         return res.json();
       })
       .then((data) => {
-        console.log('added:', data);
-        setRoutines([...routines, data]); // update list
+        setRoutines([...routines, data]);
         setActivity('');
         setDuration('');
+        if (activityInputRef.current) {
+          activityInputRef.current.focus();
+        }
       })
       .catch((err) => {
         console.error('error posting routine', err);
@@ -64,6 +55,7 @@ function RoutineManager() {
           type="text"
           value={activity}
           onChange={(e) => setActivity(e.target.value)}
+          ref={activityInputRef}
         />
 
         <label>Duration:</label>
