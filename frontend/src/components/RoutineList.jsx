@@ -1,8 +1,7 @@
 import React from 'react';
 
-// group routines by category and display them
+// show routines grouped by category
 function RoutineList({ routines }) {
-  // categorize the routines
   const grouped = routines.reduce((acc, routine) => {
     const cat = routine.category || 'Uncategorized';
     if (!acc[cat]) {
@@ -18,11 +17,11 @@ function RoutineList({ routines }) {
       {Object.keys(grouped).length === 0 ? (
         <p>No routines added yet.</p>
       ) : (
-        Object.entries(grouped).map(([category, routinesInCategory]) => (
+        Object.entries(grouped).map(([category, items]) => (
           <div key={category}>
             <div className="routine-category">{category}</div>
             <ul>
-              {routinesInCategory.map((routine) => (
+              {items.map((routine) => (
                 <li key={routine.id}>
                   {routine.activity} - {routine.duration}
                 </li>
