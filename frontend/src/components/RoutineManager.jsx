@@ -6,8 +6,10 @@ function RoutineManager() {
   const [activity, setActivity] = useState('');
   const [duration, setDuration] = useState('');
   const [routines, setRoutines] = useState([]);
+
   const activityInputRef = useRef(null);
 
+  // fetch all routines on mount
   useEffect(() => {
     fetch('/routines')
       .then((res) => res.json())
@@ -34,11 +36,12 @@ function RoutineManager() {
         return res.json();
       })
       .then((data) => {
+        console.log('added:', data);
         setRoutines([...routines, data]);
         setActivity('');
         setDuration('');
         if (activityInputRef.current) {
-          activityInputRef.current.focus();
+          activityInputRef.current.focus(); // auto focus
         }
       })
       .catch((err) => {
@@ -48,14 +51,13 @@ function RoutineManager() {
 
   return (
     <div className="routine-manager">
-      <h2>Add a New Routine</h2>
       <form onSubmit={handleSubmit}>
         <label>Activity:</label>
         <input
           type="text"
           value={activity}
-          onChange={(e) => setActivity(e.target.value)}
           ref={activityInputRef}
+          onChange={(e) => setActivity(e.target.value)}
         />
 
         <label>Duration:</label>
