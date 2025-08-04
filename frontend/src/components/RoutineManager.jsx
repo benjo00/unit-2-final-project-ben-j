@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// routine manager component for adding routines
+// routine manager component with category selection
 function RoutineManager() {
   const [activity, setActivity] = useState('');
   const [duration, setDuration] = useState('');
@@ -8,29 +8,8 @@ function RoutineManager() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const newRoutine = { activity, duration, category };
-
-    fetch('/routines', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newRoutine)
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error('Failed to add routine');
-        }
-        return res.json();
-      })
-      .then((data) => {
-        console.log('added:', data);
-        setActivity('');
-        setDuration('');
-        setCategory('');
-      })
-      .catch((err) => {
-        console.error('error posting routine', err);
-      });
+    // log data
+    console.log('submitted:', { activity, duration, category });
   };
 
   return (
@@ -52,11 +31,15 @@ function RoutineManager() {
         />
 
         <label>Category:</label>
-        <input
-          type="text"
+        <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-        />
+        >
+          <option value="">Select a category</option>
+          <option value="Mindfulness">Mindfulness</option>
+          <option value="Exercise">Exercise</option>
+          <option value="Rest">Rest</option>
+        </select>
 
         <button type="submit">Add Routine</button>
       </form>
