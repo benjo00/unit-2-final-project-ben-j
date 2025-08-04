@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import RoutineList from './RoutineList';
 
 // routine manager controls form and routines list
@@ -6,8 +6,6 @@ function RoutineManager() {
   const [activity, setActivity] = useState('');
   const [duration, setDuration] = useState('');
   const [routines, setRoutines] = useState([]);
-
-  const activityInputRef = useRef(null);
 
   // fetch all routines on mount
   useEffect(() => {
@@ -36,41 +34,59 @@ function RoutineManager() {
         return res.json();
       })
       .then((data) => {
-        console.log('added:', data);
         setRoutines([...routines, data]);
         setActivity('');
         setDuration('');
-        if (activityInputRef.current) {
-          activityInputRef.current.focus(); // auto focus
-        }
       })
       .catch((err) => {
         console.error('error posting routine', err);
       });
   };
 
+  // split routines by category for display
+  const morning = routines.filter((r) =>
+    r.activity.toLowerCase().includes('morning')
+  );
+  const afternoon = routines.filter((r) =>
+    r.activity.toLowerCase().includes('afternoon')
+  );
+  const evening = routines.filter((r) =>
+    r.activity.toLowerCase().includes('evening')
+  );
+
   return (
-    <div className="routine-manager">
-      <form onSubmit={handleSubmit}>
-        <label>Activity:</label>
-        <input
-          type="text"
-          value={activity}
-          ref={activityInputRef}
-          onChange={(e) => setActivity(e.target.value)}
-        />
+    <div className="main-content">
+      <div className="routine-manager">
+        <h2>Add a New Routine</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Activity:</label>
+          <input
+            type="text"
+            value={activity}
+            onChange={(e) => setActivity(e.target.value)}
+          />
 
-        <label>Duration:</label>
-        <input
-          type="text"
-          value={duration}
-          onChange={(e) => setDuration(e.target.value)}
-        />
+          <label>Duration:</label>
+          <input
+            type="text"
+            value={duration}
+            onChange={(e) => setDuration(e.target.value)}
+          />
 
-        <button type="submit">Add Routine</button>
-      </form>
+          <button type="submit">Add Routine</button>
+        </form>
+      </div>
 
-      <RoutineList routines={routines} />
+      <div className="routine-list">
+        <h2>Morning Routines</h2>
+        <RoutineList routines={morning} />
+
+        <h2>Afternoon Routines</h2>
+        <RoutineList routines={afternoon} />
+
+        <h2>Evening Routines</h2>
+        <RoutineList routines={evening} />
+      </div>
     </div>
   );
 }
