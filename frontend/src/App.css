@@ -269,3 +269,13 @@ th {
   color: #333;
   text-decoration: underline;
 }
+
+/* Routine category headings */
+.routine-category {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 16px;
+  border-bottom: 2px solid #ccc;
+  padding-bottom: 4px;
+  color: #333;
+}
