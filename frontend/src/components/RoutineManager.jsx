@@ -7,7 +7,7 @@ function RoutineManager() {
   const [duration, setDuration] = useState('');
   const [routines, setRoutines] = useState([]);
 
-  // fetch all routines on mount
+  // load all routines from backend when component mounts
   useEffect(() => {
     fetch('/routines')
       .then((res) => res.json())
