@@ -9,7 +9,6 @@ function RoutineManager() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // object to send to backend
     const newRoutine = { activity, duration, category };
 
     fetch('/routines', {
@@ -25,7 +24,6 @@ function RoutineManager() {
       })
       .then((data) => {
         console.log('added:', data);
-        // reset form fields
         setActivity('');
         setDuration('');
         setCategory('');
