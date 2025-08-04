@@ -260,3 +260,12 @@ th {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.category-heading {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+  text-decoration: underline;
+}
