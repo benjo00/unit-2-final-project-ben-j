@@ -246,3 +246,17 @@ th {
   padding: 8px 0;
   border-bottom: 1px solid #ddd;
 }
+
+.main-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.routine-manager,
+.routine-list {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
